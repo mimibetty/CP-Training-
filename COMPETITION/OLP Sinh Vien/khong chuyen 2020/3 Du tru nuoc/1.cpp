@@ -1,0 +1,99 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<double,double> pdd;
+typedef pair<long long, long long> pll;
+typedef double ld;
+ 
+#define For(i, l, r) for (int i = l; i < r; i++)
+#define REP(i, l, r) for (int i = l; i <= r; i++)
+#define FordE(i, l, r) for (int i = l; i >= r; i--)
+#define Fora(v, a) for (auto v: a)
+#define MS(s, n) memset(s, n, sizeof(s))
+#define All(v) (v).begin(),(v).end()
+ 
+#define cntBit __builtin_popcount 
+#define fi first 
+#define se second
+#define pb push_back
+#define precision(x) cout << setprecision(x) << fixed;
+#define EL cout << endl;
+#define whatIs(x) cerr << "Line " << __LINE__ << ": " << #x << " = " << (x) << endl
+#define SQ(a) a*a
+ 
+const int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1};
+const long long oo = 1e18 + 7;
+const int lim3 = 1e3, lim5 = 1e5;
+const int MOD = int(1e9)+7;
+const double PI = acos(-1);
+ 
+long long a[100005];
+long long b[100005];
+
+long long maxleft[100005];
+long long maxright[100005];
+
+ll m,n;
+int check(long long mid) {
+	for (int i = 1; i <= n; i++) {
+		if (a[i] <= mid) b[i] = mid;
+		else b[i] = a[i];
+	}
+
+	for (int i = 1; i <= n; i++) {
+		maxleft[i] = max(b[i], maxleft[i-1]);
+	}
+	for (int i = n; i >= 1; i--) {
+		maxright[i] = max(b[i], maxright[i+1]);
+	}
+
+	long long sum = 0; 
+	for (int i = 2; i < n; i++) {
+		long long x = min(maxright[i], maxleft[i]);
+		if (x <= b[i]) continue;
+
+		sum += (x - b[i]);
+	}
+
+	if (sum >= m) return 1;
+	return 0;
+}
+
+int main() {
+    // freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    ios::sync_with_stdio(0);
+    cin.tie(NULL);
+	
+	cin >> n >> m;
+
+	for (int i = 1; i <= n; i++) {
+		cin >> a[i];
+	} 
+
+	bool ok = 0;
+	long long lower = 1, upper = 2000000000;
+    while(lower < upper) {
+    	long long mid = (lower + upper + 1) / 2;
+    	// cout << lower << ' ' << upper << ' ' << mid << ' ' << check(mid) << endl;
+    	if (check(mid) == 1) {
+    		lower = mid;
+    		ok = 1;
+    	}
+    	else {
+    		upper = mid - 1;
+    	}
+    }
+
+    if (check(lower) == 1) ok = 1;
+    
+    if (ok == 0) {
+    	cout << -1 << endl;
+    }
+    else {
+    	cout << lower << endl;
+    }
+    return 0;
+}

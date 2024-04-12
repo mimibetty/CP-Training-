@@ -1,0 +1,3 @@
+8
+l >= r set => xoa r set, them r new vap 
+l <= r => xet r new <= r old => erase r old, add r new

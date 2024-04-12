@@ -1,0 +1,6 @@
+5
+fixers join 15 
+yh bones 10
+dragon khoi 9
+khoi yh 1
+dragon yh 5

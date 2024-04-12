@@ -1,0 +1,11 @@
+A(k,n) = n! / (n-k)!
+C(k,n) = n! / k! X (n-k)!
+
+
+CSC 
+un = u1 + (n-1)d
+Sn = (n/2) (u1 + un) = (n/2) ( 2u1 + (n-1)d);
+
+CSN
+un = u1 * q^(n-1);
+Sn = u1 * (q^n -1) / (q-1)
