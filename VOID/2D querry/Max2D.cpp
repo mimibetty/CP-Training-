@@ -6,6 +6,9 @@ const int LOG = 9; // log2(MAXN)
 int st[MAXN][MAXN][LOG][LOG];
 int a[MAXN][MAXN];
 
+// về mặt ý tưởng thì giống rmq  
+// time/space complexity for initial build (O(n*m* log(n) *log(m)))
+// time complexity for each query (O(1))
 
 int main() {
         if(fopen("input.txt", "r")) {
