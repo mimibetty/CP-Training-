@@ -86,18 +86,13 @@ int main() {
                 if (sumX > x) break;
             }
             
-            // cout <<"bit  " <<  bit << ' ' << sumX << ' ' << sumindex << ' ' << dp[i]  << endl; 
             if (sumX <= x) {
                 dp[i] = min(dp[i] , dp[i - sumindex] + 1);
-                // cout <<"bit ok  " <<  bit << ' ' << sumX << ' ' << sumindex << ' ' << dp[i]  << endl;
             }
 
         }
     }
 
     cout << dp[maxx] << endl;
-    // for (int i = 0; i <= maxx; i++) {
-    //     cout << i << ' '<< dp[i] << endl;
-    // }
     return 0;
 }

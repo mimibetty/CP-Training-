@@ -28,7 +28,8 @@ ll Rand(ll l, ll r){
 }
 
 int a[100005];
-
+vector<pii>p[100005];
+vector<int>divs[100005];
 int min_prime[1000005];
 int cnt[1000005];
 void sieve(int n) {
@@ -49,7 +50,21 @@ void sieve(int n) {
     }
 }
 
+void find_div(int indexx, int multi, int pos) {
+    if (pos == p[indexx].size()) {
+        divs[indexx].pb(multi);
+        return;
+    }
 
+    find_div(indexx, multi, pos + 1);
+    long long new_multi = multi;
+    for (int i = 1; i <= p[indexx][pos].se; i++) {
+        new_multi *= p[indexx][pos].fi;
+        find_div(indexx, new_multi, pos + 1);
+    }
+
+    return;
+}
 int main() {
     if(fopen("input.txt", "r")) {
         freopen("input.txt","r",stdin);
@@ -62,89 +77,42 @@ int main() {
     int n;
     cin >> n;
     sieve(1000000);
-
+    map<int,int>d;
     for (int i = 1; i <= n; i++) {
         cin >> a[i];
+        d[a[i]]++;
     }
 
-    // ll res = 0;
-    // for (int i = 1; i <= n; i++) {
-    //     int tmp = a[i];
-    //     int x;
-    //     while (tmp > 1) {
-    //         x = min_prime[tmp];
-    //         cnt[x]++;
-            
-    //         while (tmp % x == 0) tmp /= x;
-    //     }
-    // }
-    // for (int i = 1; i <= n; i++) {
-    //     for (int j = i +1; j <= n; j++) {
-    //         if (__gcd(a[i], a[j]) == 1) {
-    //             res++;
-    //         }
-    //     }
-    // }
-    cout << res << endl;
+    sort(a + 1, a + 1 + n);
+    for (int i = 1; i <= n ; i++) {
+        int tmp = a[i];
+        while (tmp > 1) {
+            int cnt = 0;
+            int x = min_prime[tmp];
+            while (tmp % x == 0) {
+                cnt++;
+                tmp /= x;
+            }
+            p[i].pb({x, cnt});
+        } 
+        if (tmp > 1) {
+            p[i].pb({tmp, 1});
+        }
+    }
+
+
+    for (int i = 1; i <= n; i++) {
+        find_div(i, 1, 0);
+    }
+
+    for (int i = 1; i <= n; i++) {
+        cout << "assdasd   " << a[i] << endl;
+        for (auto j : divs[i]) cout << j << ' ';
+        cout << endl;
+    }
     return 0;
 
+
 }
 
 
-n/1  + n/2 + ... + n/k-1   + n/k
-
-n/i   -> i = 1 -> k
-res = 0
-
-
-res = x1 + x2
-TH1  n/ i    i -> 1 -> sqrt(n)  => so luong khac nhau max = sqrt(n)
-    n/i = x  >    sqrt(n) , số lượng x tạo ra sqrt(k)
-    x1 = sum(n/i) i <= sqrt(k)
-
-    for (int i = 1; i <= sqrt(n); i++) {
-        x1 += n/i;
-    }
-
-
-TH2 i -> sqrt(n) + 1  -> k    n/i  <= sqrt(n)  => sl khac nhau max = sqrt(n)
-    n/i < sqrt(n)
-    x2 = sum(n/i)  i > sqrt(n)  -> k 
-1e12 
-1e6 -> 1e12? 
-
-20  sqrt(20) = 4
-
-n/i > sqrt(n)
-20/1 = 20 
-20/2 = 10 
-20/3 = 6
-20/(4) = 5   > 4
-x1 đã có 
-
-
-n/i < sqrt(n)   1 <= n/i <= sqrt(n)
-n/i = z    for (int z = 1; z <= sqrt(n); z++) {
-    x2 += soluong(zi) * zi 
-}
-
-3 < n/i <= 4
-x2 = n/i
-x2 = sum (n/i)  
-x2 =zi * cnt[zi] =  4*2   + 3*3 + 2*5 + 1*10 =   
-20/5 = 4
- 20/6 = 4 
-20/7 = 3
-20/8 = 3
-20/9 = 3  
-20/10 = 2
-20/11 = 2
- / 12 =     2
-2
-2
-2
-1
-1
-1
-1
-0
