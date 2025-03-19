@@ -7,8 +7,8 @@ using namespace std;
  
 typedef long long ll;
 typedef pair<int, int> pii;
-typedef long double ld;
- 
+
+#define bit(n,i)  ((n>>i) & 1) 
 #define MS(s, n) memset(s, n, sizeof(s))
 #define All(v) (v).begin(),(v).end()
  
@@ -27,7 +27,12 @@ ll Rand(ll l, ll r){
     uniform_int_distribution<ll> rnd(l,r); return rnd(gen);
 }
 
-char a[7][7];
+void solve() {
+    int n;
+    cin >> n;
+    cout << n-1 << endl;
+}
+
 int main() {
     if(fopen("input.txt", "r")) {
         freopen("input.txt","r",stdin);
@@ -36,29 +41,12 @@ int main() {
 
     ios::sync_with_stdio(0);
     cin.tie(NULL);
+
+    int t;
+    t = 1;
+    cin >> t;
+    while (t--)    
+    solve();
     
-
-    for (int i = 1; i <= 4; i++) {
-        for (int j = 1; j <= 4; j++) {
-            cin >> a[i][j];
-        }
-    }
-
-    for (int i = 1; i <= 3; i++) {
-        for (int j = 1; j <= 3; j++) {
-            int cnt0 = 0, cnt1 = 0;
-            if (a[i+1][j] == '.') cnt1++;
-            else cnt0++;
-            if (a[i][j+1] == '.') cnt1++;
-            else cnt0++;
-            if (a[i+1][j+1] == '.') cnt1++;
-            else cnt0++;
-            if (cnt1 == 3 || cnt0 == 3) {
-                cout << "YES";
-                return 0;
-            }
-        }
-    }
-    cout << "NO";
     return 0;
 }
