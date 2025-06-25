@@ -117,3 +117,20 @@ int main() {
 
     return 0;
 }
+
+
+dp[i][j] so ruou uong toi vi tri i va co j thang lien tiep
+
+tmp_ps[j]
+dp[i][j] = dp[i-1][j-1] + a[i]
+dp[i][0] = max dp[i-1],[j] (moij j )
+
+dp[i] 
+dp[i-1]
+
+dp[i][1] = dp[i-1][0] + a[i]
+dp[i][2] = dp[i-1][1] + a[i]
+dp[i][k] = dp[i-1][k-1] + a[i]
+
+maxVal = max()
+max dp[n][j]
